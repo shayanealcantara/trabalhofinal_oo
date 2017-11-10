@@ -45,7 +45,8 @@ public class Avaliacoes implements Interface {
 	
 	//metodo para pesquisar uma avaliação dentro do array "avaliacoes" de Avaliacoes que ja foi papulado
 	public Avaliacoes pesquisarAvaliacao() {
-		return (Avaliacoes) Servicos.pesquisar(avaliacoes, "Digite a avaliação");
+		Avaliacoes av = new Avaliacoes(null);
+		return (Avaliacoes) Servicos.pesquisar(avaliacoes, "Digite a avaliação", av);
 	}
 	
 		
@@ -54,7 +55,7 @@ public class Avaliacoes implements Interface {
 		Servicos.excluir(avaliacoes, "Nome da avaliacao, para ser excluida");
 	}
 
-	//metodo para excluir um Avaliacao, do array "avaliacoes" de Avaliacao
+	//metodo para imprimir um Avaliacao, do array "avaliacoes" de Avaliacao
 	public static void imprimirAvaliacao() {
 		Servicos.imprimir(avaliacoes);
 	}
@@ -107,6 +108,7 @@ public class Avaliacoes implements Interface {
 		return "Avaliacoes: " + this.getNome() + ", valor = " + this.getValor() + ", peso = " + this.getPeso() + "]";
 	}
 	
+	//colocando o metodo pesquisar, vindo da interface
 	@Override
 	public String pesquisar() {
 		return this.getNome();

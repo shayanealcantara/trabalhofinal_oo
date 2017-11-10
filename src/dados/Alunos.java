@@ -43,7 +43,8 @@ public class Alunos implements Interface{
 	
 	//metodo para pesquisar um aluno dentro do array "a" de Alunos que ja foi papulado
 	public static Alunos pesquisarAlunos() {
-		return (Alunos) Servicos.pesquisar(a, "Digite o Aluno");
+		Alunos aluno = new Alunos();
+		return (Alunos) Servicos.pesquisar(a, "Digite o Aluno", aluno);
 	}
 	
 	//metodo para excluir um aluno, do array "a" de Alunos

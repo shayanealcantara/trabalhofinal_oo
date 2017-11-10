@@ -1,5 +1,8 @@
 package servicos;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import javax.swing.JOptionPane;
 
 import execoes.MatricuaBarra;
@@ -67,11 +70,14 @@ public class Valida {
 		//"texto" recebe uma String do metodo Leituras.lerString(), para ser o valor
 		String texto = Leituras.lerString("Digite o "+tipo+" desta avaliação");
 		
-		//tranformado a string text em um numero float
-		Float valor = Float.parseFloat(texto);
+		Float valor = 0f;
+		
 		
 		//condicoes de exeções
 		try {
+			
+			//tranformado a string text em um numero float
+			valor = Float.parseFloat(texto);
 			
 			/*condição de comparação para ver se valor é nulo
 			 * ou negativo*/
@@ -93,7 +99,13 @@ public class Valida {
 			//chamando esse metodo de novo, para validar uma nova valor
 			validaValor(tipo);
 			
-		} 
+		} catch (Throwable e) {
+			//janela com mensagem do erro
+			JOptionPane.showMessageDialog(null, "Valor nao é valido ");
+			
+			//chamando esse metodo de novo, para validar uma nova valor
+			validaValor(tipo);
+		}
 		
 		//o retorno da valor depois de ser validada
 		return valor;

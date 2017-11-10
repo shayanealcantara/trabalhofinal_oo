@@ -6,17 +6,19 @@ import javax.swing.JOptionPane;
 
 import execoes.AlunoNull;
 import execoes.MatricuaBarra;
+import main.Interface;
 import servicos.Leituras;
+import servicos.Servicos;
 import servicos.Valida;
 
 //classe Alunos
-public class Alunos {
+public class Alunos implements Interface{
 	
 	//atributos
 	private String nome;
 	private String matricula;
 	private Turma turma;
-	private static ArrayList<Alunos> a = new ArrayList<>();
+	private static ArrayList<Interface> a = new ArrayList<>();
 	
 	//construtor padrão
 	public Alunos() {
@@ -41,75 +43,18 @@ public class Alunos {
 	
 	//metodo para pesquisar um aluno dentro do array "a" de Alunos que ja foi papulado
 	public static Alunos pesquisarAlunos() {
-		
-		/*cria uma janela para pegar a matricula para ser pesquisada, "busca" recebe
-		 * um metodo da classe Leitura q sempre me retorna uma String(matricula)*/
-		String busca = Valida.validaMatricula();
-		
-		//crinado um aluno auxiliar para receber o aluno encontrado
-		Alunos aux = new Alunos();
-		
-		//condicoes de exeções
-		try {
-			
-			/*uma laço de repetição foreach, para comparar entro todos os alunos do array "a" de Alunos,
-			 * qual que tem a matricula == "busca"*/
-			for (Alunos alunos : a) {
-				
-				//condição de comparação entre a matricula(alunos.getMatricula()) do aluno com a "busca"
-				if (alunos.getMatricula().equals(busca)) {
-					
-					//se a condição for satisfeita, aux recebe aluno
-					aux = alunos;
-
-				}
-			}
-			
-			/*condição de comparação, se o aluno não for encontrado no laço, então,
-			 *o nome do aluno auxiliar sera null, pois não recebeu nada ainda,
-			 *entao ele nao exite no array*/
-			if(aux.getNome() == null) {
-				
-				//se a condição for satisfeita, dispara a exeção AlunoNull
-				throw new AlunoNull();
-			}
-		
-		//tratamento das exeções
-			
-		//se a exeção MatriculaTamanho for disparada
-		} catch (AlunoNull e) {
-			
-			//janela com mensagem do erro
-			JOptionPane.showMessageDialog(null, "Aluno nao existe \n Tente Novamente");
-			
-			//chamando esse metodo de novo
-			pesquisarAlunos();
-		}
-		return aux;
+		return (Alunos) Servicos.pesquisar(a, "Digite o Aluno");
 	}
 	
 	//metodo para excluir um aluno, do array "a" de Alunos
 	public static void excluirAlunos() {
-		
-		//"excluir" recebe um aluno com a matricula igual a que se quer excluir
-		Alunos excluir = pesquisarAlunos();
-		
-		try {
-			if(excluir.getNome() == null) {
-				throw new AlunoNull();
-			}else {
-				//removendo esse aluno(excluir)
-				a.remove(excluir);
-				
-				//janela com a mensagem de confirmação de exclusao do aluno(excluir)
-				JOptionPane.showMessageDialog(null, excluir.toString()+" \n Foi excluido");
-			}
-		} catch (AlunoNull e) {
-			JOptionPane.showMessageDialog(null, "Aluno nao existe \n Tente Novamente");
-			excluirAlunos();
-		}
+		Servicos.excluir(a, "Digite a matricula do aluno para ser excluido");
 	}
 	
+	//metodo para excluir um aluno, do array "a" de Alunos
+	public static void imprimirAlunos() {
+		Servicos.imprimir(a);
+	}
 	
 	//metodos get's e set's
 	/**
@@ -157,5 +102,10 @@ public class Alunos {
 	@Override
 	public String toString() {
 		return "Aluno:" + this.getNome() + ", matricula = " + this.getMatricula();
+	}
+
+	@Override
+	public String pesquisar() {
+		return this.getMatricula();
 	}
 }

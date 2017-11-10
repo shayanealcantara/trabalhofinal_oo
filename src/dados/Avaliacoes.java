@@ -6,28 +6,29 @@ import javax.swing.JOptionPane;
 
 import execoes.AlunoNull;
 import execoes.AvaliacaoNull;
-import main.Interface;
+import main.Crud;
 import servicos.Leituras;
 import servicos.Servicos;
 import servicos.Valida;
 
 //classe Avaliacoes
-public class Avaliacoes implements Interface {
+public class Avaliacoes implements Crud {
 	
 	//atributos
 	private String nome;
 	private float valor;
 	private float peso;
-	private static ArrayList<Interface> avaliacoes = new ArrayList<>();
+	private float notaAluno;
+	private static ArrayList<Crud> avaliacoes = new ArrayList<>();
 	
-	public Avaliacoes(String nome) {
-		this.setNome(nome);
+	public Avaliacoes() {
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	//metodo para cadastrar um aluno no array "a" de Alunos
 	public static void cadastrarAvaliacao() {
 		//criando o avaliacao para cadastrar no array "a" de Alunos
-		Avaliacoes avaliacao = new Avaliacoes(null);
+		Avaliacoes avaliacao = new Avaliacoes();
 		
 		/*Usando o setNome para colocar o nome no aluno, como parametro eu passo
 		 * um metodo da classe Leitura q sempre me retorna uma String(nome)*/
@@ -39,13 +40,14 @@ public class Avaliacoes implements Interface {
 		
 		
 		avaliacao.setPeso(Valida.validaValor("peso"));
-		//adicionando o aluno ao array
+		
+		//adicionando a avaliacao ao array
 		avaliacoes.add(avaliacao);
 	}
 	
 	//metodo para pesquisar uma avaliação dentro do array "avaliacoes" de Avaliacoes que ja foi papulado
 	public Avaliacoes pesquisarAvaliacao() {
-		Avaliacoes av = new Avaliacoes(null);
+		Avaliacoes av = new Avaliacoes();
 		return (Avaliacoes) Servicos.pesquisar(avaliacoes, "Digite a avaliação", av);
 	}
 	
@@ -98,7 +100,19 @@ public class Avaliacoes implements Interface {
 	public void setPeso(float peso) {
 		this.peso = peso;
 	}
+	/**
+	 * @return the notaAluno
+	 */
+	public float getNotaAluno() {
+		return notaAluno;
+	}
 
+	/**
+	 * @param notaAluno the notaAluno to set
+	 */
+	public void setNotaAluno(float notaAluno) {
+		this.notaAluno = notaAluno;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -112,5 +126,10 @@ public class Avaliacoes implements Interface {
 	@Override
 	public String pesquisar() {
 		return this.getNome();
+	}
+
+	@Override
+	public ArrayList<Crud> getList() {
+		return avaliacoes;
 	}
 }

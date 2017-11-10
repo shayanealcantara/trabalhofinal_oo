@@ -1,24 +1,26 @@
 package dados;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JOptionPane;
 
 import execoes.AlunoNull;
 import execoes.MatricuaBarra;
-import main.Interface;
+import main.Crud;
 import servicos.Leituras;
 import servicos.Servicos;
 import servicos.Valida;
 
 //classe Alunos
-public class Alunos implements Interface{
+public class Alunos implements Crud{
 	
 	//atributos
 	private String nome;
 	private String matricula;
 	private Turma turma;
-	private static ArrayList<Interface> a = new ArrayList<>();
+	private ArrayList<Avaliacoes> avaliacoes = new ArrayList<>();
+	private static ArrayList<Crud> listAlunos = new ArrayList<>();
 	
 	//construtor padrão
 	public Alunos() {
@@ -38,23 +40,28 @@ public class Alunos implements Interface{
 		aluno.setMatricula(Valida.validaMatricula());
 		
 		//adicionando o aluno ao array
-		a.add(aluno);
+		listAlunos.add(aluno);
 	}
 	
 	//metodo para pesquisar um aluno dentro do array "a" de Alunos que ja foi papulado
 	public static Alunos pesquisarAlunos() {
 		Alunos aluno = new Alunos();
-		return (Alunos) Servicos.pesquisar(a, "Digite o Aluno", aluno);
+		return (Alunos) Servicos.pesquisar(listAlunos, "Digite o nome do Aluno", aluno);
 	}
 	
 	//metodo para excluir um aluno, do array "a" de Alunos
 	public static void excluirAlunos() {
-		Servicos.excluir(a, "Digite a matricula do aluno para ser excluido");
+		Servicos.excluir(listAlunos, "Digite o nome do aluno para ser excluido");
 	}
 	
 	//metodo para excluir um aluno, do array "a" de Alunos
 	public static void imprimirAlunos() {
-		Servicos.imprimir(a);
+		Servicos.imprimir(listAlunos);
+	}
+	
+	public void cadastraNotas(Avaliacoes av) {
+		avaliacoes.add(av);
+		System.out.println(avaliacoes.toString());
 	}
 	
 	//metodos get's e set's
@@ -102,11 +109,15 @@ public class Alunos implements Interface{
 	 *sobrescrita do metodo toString()*/
 	@Override
 	public String toString() {
-		return "Aluno:" + this.getNome() + ", matricula = " + this.getMatricula();
-	}
+		return "Aluno = " + nome + ", matricula = " + matricula + ", avaliacoes = " + avaliacoes;
+	}	
 
 	@Override
 	public String pesquisar() {
 		return this.getMatricula();
 	}
+
+	public ArrayList<Crud> getList() {
+		return listAlunos;
+	}	
 }

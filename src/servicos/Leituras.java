@@ -22,6 +22,9 @@ public class Leituras {
 				
 				//se a condição for satisfeita, dispara a exeção TextoBranco
 				throw new TextoBranco();
+			}else {
+				//o retorno da String depois de ser validada
+				return texto;
 			}
 		
 		//tratamento das exeções
@@ -32,11 +35,15 @@ public class Leituras {
 			//janela com mensagem do erro
 			JOptionPane.showMessageDialog(null, "Texto Vazio");
 			
-			//chamando esse metodo de novo, para validar a string novamente
-			lerString(tipo);
+			texto = lerString(tipo);
+			
+		} catch (NullPointerException e) {
+			//janela com mensagem do erro
+			JOptionPane.showMessageDialog(null, "Texto Vazio");
+			
+			texto = lerString(tipo);
 		}
 
-		//o retorno da String depois de ser validada
 		return texto;
 	}
 

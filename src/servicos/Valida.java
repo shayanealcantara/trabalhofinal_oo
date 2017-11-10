@@ -49,7 +49,7 @@ public class Valida {
 			JOptionPane.showMessageDialog(null, "matricula com tamanho errado");
 			
 			//chamando esse metodo de novo, para validar uma nova matricula
-			validaMatricula();
+			texto = validaMatricula();
 			
 		} catch (MatricuaBarra e) {
 			
@@ -57,8 +57,14 @@ public class Valida {
 			JOptionPane.showMessageDialog(null, "matricula sem a /");
 			
 			//chamando esse metodo de novo, para validar uma nova matricula
-			validaMatricula();
+			texto = validaMatricula();
 			
+		} catch (NullPointerException e) {
+			//janela com mensagem do erro
+			JOptionPane.showMessageDialog(null, "matricula sem a /");
+			
+			//chamando esse metodo de novo, para validar uma nova matricula
+			texto = validaMatricula();
 		}
 		
 		//o retorno da matricula(texto) depois de ser validada
@@ -97,14 +103,14 @@ public class Valida {
 			JOptionPane.showMessageDialog(null, "Valor digitado é nulo ou negativo ");
 			
 			//chamando esse metodo de novo, para validar uma nova valor
-			validaValor(tipo);
+			valor = validaValor(tipo);
 			
 		} catch (Throwable e) {
 			//janela com mensagem do erro
 			JOptionPane.showMessageDialog(null, "Valor nao é valido ");
 			
 			//chamando esse metodo de novo, para validar uma nova valor
-			validaValor(tipo);
+			valor = validaValor(tipo);
 		}
 		
 		//o retorno da valor depois de ser validada
